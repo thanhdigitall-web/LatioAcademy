@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-content">
           <div className="footer-brand">
-            <h2 className="footer-logo">Taskly</h2>
+            <h2 className="footer-logo">LATIO <span className="logo-accent">ACADEMY</span></h2>
             <p className="footer-tagline">Nâng tầm kỹ năng, bứt phá sự nghiệp cùng LATIO Academy.</p>
             <div className="social-links">
               <a href="#"><i className="ph ph-facebook-logo"></i></a>
@@ -49,7 +49,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; 2026 LATIO Academy & Taskly. All rights reserved.</p>
+          <p>&copy; 2026 LATIO Academy. All rights reserved.</p>
           <div className="footer-legal">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>

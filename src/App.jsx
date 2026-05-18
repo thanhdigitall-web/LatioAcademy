@@ -13,6 +13,7 @@ const App = () => {
       <div className="glow-bg">
         <div className="glow-ellipse-1"></div>
         <div className="glow-ellipse-2"></div>
+        <div className="glow-ellipse-3"></div>
       </div>
 
       <div className="container">

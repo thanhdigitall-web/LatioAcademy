@@ -2,24 +2,39 @@ import React from 'react';
 
 const TrustedBy = () => {
   return (
-    <div className="trusted-by">
-      <div className="trusted-title">Trusted by Top-tier product companies</div>
-      <div className="trusted-logos">
-        <svg viewBox="0 0 100 30" fill="currentColor">
-          <text x="0" y="20" fontSize="20" fontWeight="bold">Company 1</text>
-        </svg>
-        <svg viewBox="0 0 100 30" fill="currentColor">
-          <text x="0" y="20" fontSize="20" fontWeight="bold">Company 2</text>
-        </svg>
-        <svg viewBox="0 0 100 30" fill="currentColor">
-          <text x="0" y="20" fontSize="20" fontWeight="bold">Company 3</text>
-        </svg>
-        <svg viewBox="0 0 100 30" fill="currentColor">
-          <text x="0" y="20" fontSize="20" fontWeight="bold">Company 4</text>
-        </svg>
-        <svg viewBox="0 0 100 30" fill="currentColor">
-          <text x="0" y="20" fontSize="20" fontWeight="bold">Company 5</text>
-        </svg>
+    <div className="tools-section">
+      <div className="tools-title">CÔNG CỤ THỰC HÀNH CHUYÊN NGHIỆP</div>
+      <div className="tools-grid-row">
+        <div className="tool-badge badge-ps">
+          <div className="tool-icon-box">Ps</div>
+          <span className="tool-name">Adobe Photoshop</span>
+        </div>
+        <div className="tool-badge badge-cc">
+          <div className="tool-icon-box">Cc</div>
+          <span className="tool-name">CapCut PC</span>
+        </div>
+        <div className="tool-badge badge-mj">
+          <div className="tool-icon-box">Mj</div>
+          <span className="tool-name">AI Midjourney</span>
+        </div>
+        <div className="tool-badge badge-pr">
+          <div className="tool-icon-box">Pr</div>
+          <span className="tool-name">Premiere Pro</span>
+        </div>
+        <div className="tool-badge badge-ai">
+          <div className="tool-icon-box">Ai</div>
+          <span className="tool-name">Illustrator</span>
+        </div>
+      </div>
+      
+      <div className="partners-row">
+        <span className="partners-label">Đối tác tuyển dụng học viên:</span>
+        <div className="partner-tags">
+          <span className="partner-tag">Latio Digital</span>
+          <span className="partner-tag">Schannel Agency</span>
+          <span className="partner-tag">VTV Production</span>
+          <span className="partner-tag">Arena Studio</span>
+        </div>
       </div>
     </div>
   );

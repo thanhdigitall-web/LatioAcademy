@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-brand font-brand">
-        Taskly
+        LATIO <span className="brand-accent">ACADEMY</span>
       </div>
       <div className="nav-links">
         <a href="#" className="nav-link">Trang chủ</a>
