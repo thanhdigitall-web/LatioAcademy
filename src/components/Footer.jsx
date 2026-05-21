@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -20,17 +21,18 @@ const Footer = () => {
             <div className="footer-col">
               <h3>Khóa học</h3>
               <ul>
-                <li><a href="#">Photoshop Nâng Cao</a></li>
-                <li><a href="#">Designer 2D</a></li>
-                <li><a href="#">Edit Video CapCut</a></li>
-                <li><a href="#">Lộ trình Agency</a></li>
+                <li><Link to="/courses#design-advanced">Photoshop Nâng Cao</Link></li>
+                <li><Link to="/courses#design">Designer 2D</Link></li>
+                <li><Link to="/courses#edit">Edit Video CapCut</Link></li>
+                <li><Link to="/courses">Lộ trình Agency</Link></li>
               </ul>
             </div>
             
             <div className="footer-col">
               <h3>Hỗ trợ</h3>
               <ul>
-                <li><a href="#">Liên hệ</a></li>
+                <li><Link to="/contact">Liên hệ</Link></li>
+                <li><Link to="/instructors">Đội ngũ giảng viên</Link></li>
                 <li><a href="#">Chính sách hoàn tiền</a></li>
                 <li><a href="#">Câu hỏi thường gặp</a></li>
                 <li><a href="#">Cộng đồng học viên</a></li>

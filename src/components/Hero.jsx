@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Hero3DBlock from './Hero3DBlock';
 
 const Hero = () => {
@@ -9,22 +10,23 @@ const Hero = () => {
           <div className="badge-live-pulse"></div>
           <span className="social-proof-text">Đào tạo thực chiến · Lộ trình chuẩn Agency · Hỗ trợ trọn đời</span>
         </div>
-        
+
         <h1 className="hero-headline">
-          Bứt Phá Kỹ Năng Sáng Tạo,<br />Làm Chủ Lộ Trình <span className="text-gradient">Chuẩn Agency</span>
+          Bứt Phá Kỹ Năng<br /> Sáng Tạo,<br />Làm Chủ Lộ Trình <span className="text-gradient">Chuẩn Agency</span>
         </h1>
-        
+
         <p className="hero-subheadline">
           Học Photoshop chuyên nghiệp, biên tập video CapCut PC đỉnh cao và ứng dụng AI Render từ số 0. Tự tay tạo ra các sản phẩm chất lượng cao chuẩn Studio & Agency cùng đội ngũ chuyên gia giàu kinh nghiệm.
         </p>
-        
+
         <div className="hero-cta-group">
-          <a href="#courses" className="btn-primary">
+          <Link to="/courses" className="btn-primary">
             Khám phá khóa học
             <div className="icon-circle">
               <i className="ph ph-arrow-right"></i>
             </div>
-          </a>
+          </Link>
+
           <a href="#courses" className="btn-secondary">
             Xem giáo trình <i className="ph ph-book-open"></i>
           </a>

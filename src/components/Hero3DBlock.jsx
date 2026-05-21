@@ -1,24 +1,98 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import logo3d from '../assets/logo_clean.png';
 
 const Hero3DBlock = () => {
+  const containerRef = useRef(null);
+  const [transform, setTransform] = useState('rotateX(0deg) rotateY(0deg)');
+  const [sheenStyle, setSheenStyle] = useState({ opacity: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left; 
+    const y = e.clientY - rect.top;  
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Smooth 3D tilt (max 12 degrees)
+    const maxRotate = 12;
+    const rotateX = ((centerY - y) / centerY) * maxRotate;
+    const rotateY = ((x - centerX) / centerX) * maxRotate;
+    
+    setTransform(`rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.04)`);
+    
+    // Dynamic sheen overlay
+    const sheenX = (x / rect.width) * 100;
+    const sheenY = (y / rect.height) * 100;
+    setSheenStyle({
+      opacity: 0.65,
+      background: `radial-gradient(circle at ${sheenX}% ${sheenY}%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 65%)`
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('rotateX(0deg) rotateY(0deg) scale(1)');
+    setSheenStyle({ opacity: 0 });
+  };
+
   return (
     <div className="hero-workbench-wrapper">
       {/* Glow effect behind the logo */}
       <div className="workbench-glow"></div>
       
       {/* Central Glassmorphic Logo Container */}
-      <div className="workbench-center">
-        <div className="workbench-logo-glass">
+      <div className="workbench-center" style={{ perspective: '1000px' }}>
+        <div 
+          ref={containerRef}
+          className="workbench-logo-glass"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ 
+            transform: transform,
+            transition: 'transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease'
+          }}
+        >
+          {/* Glassmorphic Sheen Reflection */}
+          <div 
+            className="glass-sheen-overlay" 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              pointerEvents: 'none',
+              zIndex: 6,
+              transition: 'opacity 0.3s ease',
+              ...sheenStyle
+            }}
+          />
+
+          {/* Glowing Inner Parallax Ring */}
+          <div className="logo-glass-inner-ring"></div>
+
           <img 
             src={logo3d} 
             alt="Latio Logo" 
             className="workbench-logo-img"
+            style={{ 
+              zIndex: 5, 
+              transformStyle: 'preserve-3d', 
+              transform: 'translateZ(25px)',
+              transition: 'transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1)'
+            }}
           />
         </div>
-        {/* Decorative rotating orbit rings */}
-        <div className="orbit-ring ring-1"></div>
-        <div className="orbit-ring ring-2"></div>
+        {/* Decorative rotating orbit rings with sparkling satellites */}
+        <div className="orbit-ring ring-1">
+          <div className="orbit-satellite sat-1"></div>
+          <div className="orbit-satellite sat-1-pulse"></div>
+        </div>
+        <div className="orbit-ring ring-2">
+          <div className="orbit-satellite sat-2"></div>
+        </div>
       </div>
 
       {/* Floating Course Software Logos */}
