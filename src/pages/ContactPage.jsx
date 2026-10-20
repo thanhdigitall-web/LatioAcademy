@@ -27,7 +27,7 @@ const ContactPage = () => {
       newErrors.phone = 'Số điện thoại không hợp lệ (10-11 chữ số)';
     }
     if (!formData.message.trim()) newErrors.message = 'Vui lòng nhập lời nhắn';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -95,7 +95,7 @@ const ContactPage = () => {
           </span>
           <h1 className="brand-accent">Hỗ Trợ & Hợp Tác</h1>
           <p>
-            Bạn có câu hỏi về khóa học hoặc muốn đồng hành cùng LATIO Academy? 
+            Bạn có câu hỏi về khóa học hoặc muốn đồng hành cùng LATIO Academy?
             Hãy để lại tin nhắn, chúng tôi luôn sẵn sàng hỗ trợ bạn.
           </p>
         </div>
@@ -107,7 +107,7 @@ const ContactPage = () => {
               <>
                 <h2>Gửi thắc mắc cho chúng tôi</h2>
                 <p>Điền thông tin của bạn vào biểu mẫu bên dưới để nhận tư vấn sớm nhất.</p>
-                
+
                 <form onSubmit={handleSubmit} className="contact-form" noValidate>
                   {/* Name field */}
                   <div className="form-group">
@@ -219,8 +219,8 @@ const ContactPage = () => {
                     )}
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className={`btn-submit ${isSubmitting ? 'loading' : ''}`}
                     disabled={isSubmitting}
                   >
@@ -254,11 +254,11 @@ const ContactPage = () => {
           <div className="contact-info-dashboard">
             {/* Map embedded directly inside the dashboard */}
             <div className="contact-map-holder">
-              <iframe 
-                src="https://maps.google.com/maps?q=86%20%C4%90o%C3%A0n%20V%C4%83n%20C%E1%BB%AB,%20H%C3%B2a%20An,%20C%E1%BA%A9m%20L%E1%BB%87,%20%C4%90%C3%A0%20N%E1%BA%B5ng&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+              <iframe
+                src="https://maps.google.com/maps?q=86%20%C4%90o%C3%A0n%20V%C4%83n%20C%E1%BB%AB,%20H%C3%B2a%20An,%20C%E1%BA%A9m%20L%E1%BB%87,%20%C4%90%C3%A0%20N%E1%BA%B5ng&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 className="contact-map-iframe"
-                allowFullScreen="" 
-                loading="lazy" 
+                allowFullScreen=""
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="LATIO Academy Location Map"
               ></iframe>
@@ -294,7 +294,7 @@ const ContactPage = () => {
                 </div>
                 <div className="contact-info-text-box">
                   <h3>Địa Chỉ Học Viện</h3>
-                  <p>86 Đoàn Văn Cừ, Hoà An, Cẩm Lệ, Đà Nẵng</p>
+                  <p>86 Đoàn Văn Cừ, Hòa Khánh, Đà Nẵng</p>
                 </div>
               </div>
             </div>

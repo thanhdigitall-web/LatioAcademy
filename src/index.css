@@ -1,5 +1,9 @@
 
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --color-primary-blue: #0084ff;
   --color-primary-purple: #a855f7;
@@ -3738,7 +3742,8 @@ h1, h2, h3, .font-brand {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nav-dropdown:hover .nav-caret {
+.nav-dropdown:hover .nav-caret,
+.nav-caret.rotated {
   transform: rotate(180deg);
   color: var(--color-primary-purple, #6366f1);
 }
@@ -3768,8 +3773,9 @@ h1, h2, h3, .font-brand {
   gap: 4px;
 }
 
-/* Show on Hover */
-.nav-dropdown:hover .dropdown-menu {
+/* Show on Hover or via React state (.show class) */
+.nav-dropdown:hover .dropdown-menu,
+.dropdown-menu.show {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
@@ -3790,7 +3796,7 @@ h1, h2, h3, .font-brand {
   z-index: -1;
 }
 
-/* Dropdown Item */
+/* Dropdown Item — works for both <Link> and <button> */
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -3801,6 +3807,12 @@ h1, h2, h3, .font-brand {
   color: inherit;
   transition: all 0.2s ease;
   text-align: left;
+  /* Reset button defaults */
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-family: inherit;
 }
 
 .dropdown-item:hover {

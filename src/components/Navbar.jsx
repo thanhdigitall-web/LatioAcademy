@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const hoverTimeoutRef = useRef(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    setIsDropdownOpen(false); // Reset dropdown state when toggling main menu
+    setIsDropdownOpen(false);
   };
 
   const closeMobileMenu = () => {
@@ -36,10 +39,63 @@ const Navbar = () => {
     }
   };
 
+  // Hover handlers for desktop dropdown
+  const handleMouseEnter = () => {
+    if (window.innerWidth > 768) {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth > 768) {
+      hoverTimeoutRef.current = setTimeout(() => {
+        setIsHovered(false);
+      }, 150);
+    }
+  };
+
+  // Click a course in dropdown -> navigate to /courses and smooth scroll to that course
+  const handleCourseClick = (courseId) => {
+    closeMobileMenu();
+    setIsHovered(false);
+
+    const targetHash = `course-${courseId}`;
+
+    if (location.pathname === '/courses') {
+      // Already on courses page — just scroll
+      const el = document.getElementById(targetHash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        flashHighlight(el);
+      }
+    } else {
+      // Navigate then scroll after page loads
+      navigate(`/courses#${targetHash}`);
+    }
+  };
+
+  const flashHighlight = (el) => {
+    el.style.transition = 'box-shadow 0.5s ease';
+    el.style.boxShadow = '0 0 40px rgba(14, 165, 233, 0.55)';
+    setTimeout(() => {
+      el.style.boxShadow = '';
+    }, 2000);
+  };
+
   // Auto-close menu on location changes
   useEffect(() => {
     closeMobileMenu();
   }, [location]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
+
+  const isDropdownVisible = isDropdownOpen || isHovered;
 
   return (
     <nav className={`navbar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
@@ -51,14 +107,26 @@ const Navbar = () => {
         <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={closeMobileMenu}>Trang chủ</Link>
         
         {/* Dropdown Menu for Khóa học */}
-        <div className={`nav-dropdown ${isDropdownOpen ? 'dropdown-open' : ''}`}>
-          <Link to="/courses" className={`nav-link ${location.pathname === '/courses' ? 'active' : ''}`} onClick={toggleDropdown}>
-            Khóa học <i className={`ph ph-caret-down nav-caret ${isDropdownOpen ? 'rotated' : ''}`}></i>
+        <div
+          className={`nav-dropdown ${isDropdownVisible ? 'dropdown-open' : ''}`}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Link
+            to="/courses"
+            className={`nav-link ${location.pathname === '/courses' ? 'active' : ''}`}
+            onClick={toggleDropdown}
+          >
+            Khóa học <i className={`ph ph-caret-down nav-caret ${isDropdownVisible ? 'rotated' : ''}`}></i>
           </Link>
-          <div className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}>
+          <div className={`dropdown-menu ${isDropdownVisible ? 'show' : ''}`}>
             {navCourses.length > 0 ? (
               navCourses.map(course => (
-                <Link key={course._id} to="/courses" className={`dropdown-item ${course.color || 'orange'}`} onClick={closeMobileMenu}>
+                <button
+                  key={course._id}
+                  className={`dropdown-item ${course.color || 'orange'}`}
+                  onClick={() => handleCourseClick(course._id)}
+                >
                   <div className="dropdown-icon-wrapper">
                     <i className={`ph ${course.icon || 'ph-video-camera'}`}></i>
                   </div>
@@ -66,7 +134,7 @@ const Navbar = () => {
                     <span className="dropdown-title">{course.titlePrefix || course.title}</span>
                     <span className="dropdown-desc">{course.titleSuffix || ''}</span>
                   </div>
-                </Link>
+                </button>
               ))
             ) : (
               <div style={{padding: '10px 20px', color: '#64748b'}}>Đang cập nhật...</div>

@@ -44,23 +44,33 @@ const CoursesPage = () => {
   useEffect(() => {
     if (location.hash && !loading) {
       const id = location.hash.replace('#', '');
-      
-      // Try to find element immediately
-      let element = document.getElementById(id);
-      
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Add a temporary highlight effect
-          element.style.transition = 'box-shadow 0.5s ease';
-          element.style.boxShadow = '0 0 30px rgba(14, 165, 233, 0.5)';
-          setTimeout(() => {
-            element.style.boxShadow = 'none';
-          }, 2000);
-        }, 200); // Wait for render to settle
-      }
+
+      const scrollToElement = (attempts = 0) => {
+        const element = document.getElementById(id);
+        if (element) {
+          // Wait one tick for layout to settle
+          requestAnimationFrame(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Highlight flash
+            element.style.transition = 'box-shadow 0.4s ease, transform 0.4s ease';
+            element.style.boxShadow = '0 0 50px rgba(14, 165, 233, 0.6), 0 0 120px rgba(14, 165, 233, 0.2)';
+            element.style.transform = 'scale(1.005)';
+            setTimeout(() => {
+              element.style.boxShadow = '';
+              element.style.transform = '';
+            }, 2000);
+          });
+        } else if (attempts < 5) {
+          // Retry up to 5 times with increasing delay
+          setTimeout(() => scrollToElement(attempts + 1), 150 * (attempts + 1));
+        }
+      };
+
+      // Start with a small delay to let the page render
+      setTimeout(() => scrollToElement(), 100);
     }
-  }, [location, loading]);
+  }, [location.hash, loading]);
+
 
   const getHexColor = (colorName) => {
     switch (colorName) {
