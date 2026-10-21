@@ -27,7 +27,7 @@ const FloatingContact = () => {
       </a>
 
       <a
-        href="https://www.facebook.com/latioacademy?locale=vi_VN"
+        href="https://www.facebook.com/latioacademy"
         className="contact-btn fb-btn"
         target="_blank"
         rel="noopener noreferrer"
